@@ -1,0 +1,2679 @@
+Terminals unused in grammar
+
+   DEF
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: ProgramName SEMICOLON DeclarationList FunctionList CompoundStatement END
+
+    2 ProgramName: ID
+
+    3 DeclarationList: Epsilon
+    4                | Declarations
+
+    5 Declarations: Declaration
+    6             | Declarations Declaration
+
+    7 FunctionList: Epsilon
+    8             | Functions
+
+    9 Functions: Function
+   10          | Functions Function
+
+   11 Function: FunctionDeclaration
+   12         | FunctionDefinition
+
+   13 FunctionDeclaration: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType SEMICOLON
+
+   14 FunctionDefinition: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType CompoundStatement END
+
+   15 FunctionName: ID
+
+   16 FormalArgList: Epsilon
+   17              | FormalArgs
+
+   18 FormalArgs: FormalArg
+   19           | FormalArgs SEMICOLON FormalArg
+
+   20 FormalArg: IdList COLON Type
+
+   21 IdList: ID
+   22       | IdList COMMA ID
+
+   23 ReturnType: COLON ScalarType
+   24           | Epsilon
+
+   25 Declaration: VAR IdList COLON Type SEMICOLON
+   26            | VAR IdList COLON LiteralConstant SEMICOLON
+
+   27 Type: ScalarType
+   28     | ArrType
+
+   29 ScalarType: INTEGER
+   30           | REAL
+   31           | STRING
+   32           | BOOLEAN
+
+   33 ArrType: ArrDecl ScalarType
+
+   34 ArrDecl: ARRAY INT_LITERAL OF
+   35        | ArrDecl ARRAY INT_LITERAL OF
+
+   36 LiteralConstant: NegOrNot INT_LITERAL
+   37                | NegOrNot REAL_LITERAL
+   38                | StringAndBoolean
+
+   39 NegOrNot: Epsilon
+   40         | MINUS
+
+   41 StringAndBoolean: STRING_LITERAL
+   42                 | TRUE
+   43                 | FALSE
+
+   44 IntegerAndReal: INT_LITERAL
+   45               | REAL_LITERAL
+
+   46 Statement: CompoundStatement
+   47          | Simple
+   48          | Condition
+   49          | While
+   50          | For
+   51          | Return
+   52          | FunctionCall
+
+   53 CompoundStatement: BEGIN_ DeclarationList StatementList END
+
+   54 Simple: VariableReference ASSIGN Expression SEMICOLON
+   55       | PRINT Expression SEMICOLON
+   56       | READ VariableReference SEMICOLON
+
+   57 VariableReference: ID
+   58                  | ID ArrRef
+
+   59 ArrRef: L_BRACKET Expression R_BRACKET
+   60       | ArrRef L_BRACKET Expression R_BRACKET
+
+   61 Condition: IF Expression THEN CompoundStatement ElseOrNot END IF
+
+   62 ElseOrNot: ELSE CompoundStatement
+   63          | Epsilon
+
+   64 While: WHILE Expression DO CompoundStatement END DO
+
+   65 For: FOR ID ASSIGN INT_LITERAL TO INT_LITERAL DO CompoundStatement END DO
+
+   66 Return: RETURN Expression SEMICOLON
+
+   67 FunctionCall: FunctionInvocation SEMICOLON
+
+   68 FunctionInvocation: ID L_PARENTHESIS ExpressionList R_PARENTHESIS
+
+   69 ExpressionList: Epsilon
+   70               | Expressions
+
+   71 Expressions: Expression
+   72            | Expressions COMMA Expression
+
+   73 StatementList: Epsilon
+   74              | Statements
+
+   75 Statements: Statement
+   76           | Statements Statement
+
+   77 Expression: L_PARENTHESIS Expression R_PARENTHESIS
+   78           | MINUS Expression
+   79           | Expression MULTIPLY Expression
+   80           | Expression DIVIDE Expression
+   81           | Expression MOD Expression
+   82           | Expression PLUS Expression
+   83           | Expression MINUS Expression
+   84           | Expression LESS Expression
+   85           | Expression LESS_OR_EQUAL Expression
+   86           | Expression GREATER Expression
+   87           | Expression GREATER_OR_EQUAL Expression
+   88           | Expression EQUAL Expression
+   89           | Expression NOT_EQUAL Expression
+   90           | NOT Expression
+   91           | Expression AND Expression
+   92           | Expression OR Expression
+   93           | IntegerAndReal
+   94           | StringAndBoolean
+   95           | VariableReference
+   96           | FunctionInvocation
+
+   97 Epsilon: %empty
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+COMMA (258) 22 72
+SEMICOLON (259) 1 13 19 25 26 54 55 56 66 67
+COLON (260) 20 23 25 26
+L_PARENTHESIS (261) 13 14 68 77
+R_PARENTHESIS (262) 13 14 68 77
+L_BRACKET (263) 59 60
+R_BRACKET (264) 59 60
+ASSIGN (265) 54 65
+OR (266) 92
+AND (267) 91
+NOT (268) 90
+LESS (269) 84
+LESS_OR_EQUAL (270) 85
+EQUAL (271) 88
+GREATER (272) 86
+GREATER_OR_EQUAL (273) 87
+NOT_EQUAL (274) 89
+PLUS (275) 82
+MINUS (276) 40 78 83
+MULTIPLY (277) 79
+DIVIDE (278) 80
+MOD (279) 81
+UNARY_MINUS (280)
+ARRAY (281) 34 35
+BOOLEAN (282) 32
+INTEGER (283) 29
+REAL (284) 30
+STRING (285) 31
+END (286) 1 14 53 61 64 65
+BEGIN_ (287) 53
+DO (288) 64 65
+ELSE (289) 62
+FOR (290) 65
+IF (291) 61
+THEN (292) 61
+WHILE (293) 64
+DEF (294)
+OF (295) 34 35
+TO (296) 65
+RETURN (297) 66
+VAR (298) 25 26
+FALSE (299) 43
+TRUE (300) 42
+PRINT (301) 55
+READ (302) 56
+ID (303) 2 15 21 22 57 58 65 68
+INT_LITERAL (304) 34 35 36 44 65
+REAL_LITERAL (305) 37 45
+STRING_LITERAL (306) 41
+
+
+Nonterminals, with rules where they appear
+
+$accept (52)
+    on left: 0
+Program (53)
+    on left: 1, on right: 0
+ProgramName (54)
+    on left: 2, on right: 1
+DeclarationList (55)
+    on left: 3 4, on right: 1 53
+Declarations (56)
+    on left: 5 6, on right: 4 6
+FunctionList (57)
+    on left: 7 8, on right: 1
+Functions (58)
+    on left: 9 10, on right: 8 10
+Function (59)
+    on left: 11 12, on right: 9 10
+FunctionDeclaration (60)
+    on left: 13, on right: 11
+FunctionDefinition (61)
+    on left: 14, on right: 12
+FunctionName (62)
+    on left: 15, on right: 13 14
+FormalArgList (63)
+    on left: 16 17, on right: 13 14
+FormalArgs (64)
+    on left: 18 19, on right: 17 19
+FormalArg (65)
+    on left: 20, on right: 18 19
+IdList (66)
+    on left: 21 22, on right: 20 22 25 26
+ReturnType (67)
+    on left: 23 24, on right: 13 14
+Declaration (68)
+    on left: 25 26, on right: 5 6
+Type (69)
+    on left: 27 28, on right: 20 25
+ScalarType (70)
+    on left: 29 30 31 32, on right: 23 27 33
+ArrType (71)
+    on left: 33, on right: 28
+ArrDecl (72)
+    on left: 34 35, on right: 33 35
+LiteralConstant (73)
+    on left: 36 37 38, on right: 26
+NegOrNot (74)
+    on left: 39 40, on right: 36 37
+StringAndBoolean (75)
+    on left: 41 42 43, on right: 38 94
+IntegerAndReal (76)
+    on left: 44 45, on right: 93
+Statement (77)
+    on left: 46 47 48 49 50 51 52, on right: 75 76
+CompoundStatement (78)
+    on left: 53, on right: 1 14 46 61 62 64 65
+Simple (79)
+    on left: 54 55 56, on right: 47
+VariableReference (80)
+    on left: 57 58, on right: 54 56 95
+ArrRef (81)
+    on left: 59 60, on right: 58 60
+Condition (82)
+    on left: 61, on right: 48
+ElseOrNot (83)
+    on left: 62 63, on right: 61
+While (84)
+    on left: 64, on right: 49
+For (85)
+    on left: 65, on right: 50
+Return (86)
+    on left: 66, on right: 51
+FunctionCall (87)
+    on left: 67, on right: 52
+FunctionInvocation (88)
+    on left: 68, on right: 67 96
+ExpressionList (89)
+    on left: 69 70, on right: 68
+Expressions (90)
+    on left: 71 72, on right: 70 72
+StatementList (91)
+    on left: 73 74, on right: 53
+Statements (92)
+    on left: 75 76, on right: 74 76
+Expression (93)
+    on left: 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94
+    95 96, on right: 54 55 59 60 61 64 66 71 72 77 78 79 80 81 82 83
+    84 85 86 87 88 89 90 91 92
+Epsilon (94)
+    on left: 97, on right: 3 7 16 24 39 63 69 73
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    ID  shift, and go to state 1
+
+    Program      go to state 2
+    ProgramName  go to state 3
+
+
+State 1
+
+    2 ProgramName: ID .
+
+    $default  reduce using rule 2 (ProgramName)
+
+
+State 2
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 Program: ProgramName . SEMICOLON DeclarationList FunctionList CompoundStatement END
+
+    SEMICOLON  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+State 5
+
+    1 Program: ProgramName SEMICOLON . DeclarationList FunctionList CompoundStatement END
+
+    VAR  shift, and go to state 6
+
+    $default  reduce using rule 97 (Epsilon)
+
+    DeclarationList  go to state 7
+    Declarations     go to state 8
+    Declaration      go to state 9
+    Epsilon          go to state 10
+
+
+State 6
+
+   25 Declaration: VAR . IdList COLON Type SEMICOLON
+   26            | VAR . IdList COLON LiteralConstant SEMICOLON
+
+    ID  shift, and go to state 11
+
+    IdList  go to state 12
+
+
+State 7
+
+    1 Program: ProgramName SEMICOLON DeclarationList . FunctionList CompoundStatement END
+
+    ID  shift, and go to state 13
+
+    $default  reduce using rule 97 (Epsilon)
+
+    FunctionList         go to state 14
+    Functions            go to state 15
+    Function             go to state 16
+    FunctionDeclaration  go to state 17
+    FunctionDefinition   go to state 18
+    FunctionName         go to state 19
+    Epsilon              go to state 20
+
+
+State 8
+
+    4 DeclarationList: Declarations .
+    6 Declarations: Declarations . Declaration
+
+    VAR  shift, and go to state 6
+
+    $default  reduce using rule 4 (DeclarationList)
+
+    Declaration  go to state 21
+
+
+State 9
+
+    5 Declarations: Declaration .
+
+    $default  reduce using rule 5 (Declarations)
+
+
+State 10
+
+    3 DeclarationList: Epsilon .
+
+    $default  reduce using rule 3 (DeclarationList)
+
+
+State 11
+
+   21 IdList: ID .
+
+    $default  reduce using rule 21 (IdList)
+
+
+State 12
+
+   22 IdList: IdList . COMMA ID
+   25 Declaration: VAR IdList . COLON Type SEMICOLON
+   26            | VAR IdList . COLON LiteralConstant SEMICOLON
+
+    COMMA  shift, and go to state 22
+    COLON  shift, and go to state 23
+
+
+State 13
+
+   15 FunctionName: ID .
+
+    $default  reduce using rule 15 (FunctionName)
+
+
+State 14
+
+    1 Program: ProgramName SEMICOLON DeclarationList FunctionList . CompoundStatement END
+
+    BEGIN_  shift, and go to state 24
+
+    CompoundStatement  go to state 25
+
+
+State 15
+
+    8 FunctionList: Functions .
+   10 Functions: Functions . Function
+
+    ID  shift, and go to state 13
+
+    $default  reduce using rule 8 (FunctionList)
+
+    Function             go to state 26
+    FunctionDeclaration  go to state 17
+    FunctionDefinition   go to state 18
+    FunctionName         go to state 19
+
+
+State 16
+
+    9 Functions: Function .
+
+    $default  reduce using rule 9 (Functions)
+
+
+State 17
+
+   11 Function: FunctionDeclaration .
+
+    $default  reduce using rule 11 (Function)
+
+
+State 18
+
+   12 Function: FunctionDefinition .
+
+    $default  reduce using rule 12 (Function)
+
+
+State 19
+
+   13 FunctionDeclaration: FunctionName . L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType SEMICOLON
+   14 FunctionDefinition: FunctionName . L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType CompoundStatement END
+
+    L_PARENTHESIS  shift, and go to state 27
+
+
+State 20
+
+    7 FunctionList: Epsilon .
+
+    $default  reduce using rule 7 (FunctionList)
+
+
+State 21
+
+    6 Declarations: Declarations Declaration .
+
+    $default  reduce using rule 6 (Declarations)
+
+
+State 22
+
+   22 IdList: IdList COMMA . ID
+
+    ID  shift, and go to state 28
+
+
+State 23
+
+   25 Declaration: VAR IdList COLON . Type SEMICOLON
+   26            | VAR IdList COLON . LiteralConstant SEMICOLON
+
+    MINUS           shift, and go to state 29
+    ARRAY           shift, and go to state 30
+    BOOLEAN         shift, and go to state 31
+    INTEGER         shift, and go to state 32
+    REAL            shift, and go to state 33
+    STRING          shift, and go to state 34
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    STRING_LITERAL  shift, and go to state 37
+
+    $default  reduce using rule 97 (Epsilon)
+
+    Type              go to state 38
+    ScalarType        go to state 39
+    ArrType           go to state 40
+    ArrDecl           go to state 41
+    LiteralConstant   go to state 42
+    NegOrNot          go to state 43
+    StringAndBoolean  go to state 44
+    Epsilon           go to state 45
+
+
+State 24
+
+   53 CompoundStatement: BEGIN_ . DeclarationList StatementList END
+
+    VAR  shift, and go to state 6
+
+    $default  reduce using rule 97 (Epsilon)
+
+    DeclarationList  go to state 46
+    Declarations     go to state 8
+    Declaration      go to state 9
+    Epsilon          go to state 10
+
+
+State 25
+
+    1 Program: ProgramName SEMICOLON DeclarationList FunctionList CompoundStatement . END
+
+    END  shift, and go to state 47
+
+
+State 26
+
+   10 Functions: Functions Function .
+
+    $default  reduce using rule 10 (Functions)
+
+
+State 27
+
+   13 FunctionDeclaration: FunctionName L_PARENTHESIS . FormalArgList R_PARENTHESIS ReturnType SEMICOLON
+   14 FunctionDefinition: FunctionName L_PARENTHESIS . FormalArgList R_PARENTHESIS ReturnType CompoundStatement END
+
+    ID  shift, and go to state 11
+
+    $default  reduce using rule 97 (Epsilon)
+
+    FormalArgList  go to state 48
+    FormalArgs     go to state 49
+    FormalArg      go to state 50
+    IdList         go to state 51
+    Epsilon        go to state 52
+
+
+State 28
+
+   22 IdList: IdList COMMA ID .
+
+    $default  reduce using rule 22 (IdList)
+
+
+State 29
+
+   40 NegOrNot: MINUS .
+
+    $default  reduce using rule 40 (NegOrNot)
+
+
+State 30
+
+   34 ArrDecl: ARRAY . INT_LITERAL OF
+
+    INT_LITERAL  shift, and go to state 53
+
+
+State 31
+
+   32 ScalarType: BOOLEAN .
+
+    $default  reduce using rule 32 (ScalarType)
+
+
+State 32
+
+   29 ScalarType: INTEGER .
+
+    $default  reduce using rule 29 (ScalarType)
+
+
+State 33
+
+   30 ScalarType: REAL .
+
+    $default  reduce using rule 30 (ScalarType)
+
+
+State 34
+
+   31 ScalarType: STRING .
+
+    $default  reduce using rule 31 (ScalarType)
+
+
+State 35
+
+   43 StringAndBoolean: FALSE .
+
+    $default  reduce using rule 43 (StringAndBoolean)
+
+
+State 36
+
+   42 StringAndBoolean: TRUE .
+
+    $default  reduce using rule 42 (StringAndBoolean)
+
+
+State 37
+
+   41 StringAndBoolean: STRING_LITERAL .
+
+    $default  reduce using rule 41 (StringAndBoolean)
+
+
+State 38
+
+   25 Declaration: VAR IdList COLON Type . SEMICOLON
+
+    SEMICOLON  shift, and go to state 54
+
+
+State 39
+
+   27 Type: ScalarType .
+
+    $default  reduce using rule 27 (Type)
+
+
+State 40
+
+   28 Type: ArrType .
+
+    $default  reduce using rule 28 (Type)
+
+
+State 41
+
+   33 ArrType: ArrDecl . ScalarType
+   35 ArrDecl: ArrDecl . ARRAY INT_LITERAL OF
+
+    ARRAY    shift, and go to state 55
+    BOOLEAN  shift, and go to state 31
+    INTEGER  shift, and go to state 32
+    REAL     shift, and go to state 33
+    STRING   shift, and go to state 34
+
+    ScalarType  go to state 56
+
+
+State 42
+
+   26 Declaration: VAR IdList COLON LiteralConstant . SEMICOLON
+
+    SEMICOLON  shift, and go to state 57
+
+
+State 43
+
+   36 LiteralConstant: NegOrNot . INT_LITERAL
+   37                | NegOrNot . REAL_LITERAL
+
+    INT_LITERAL   shift, and go to state 58
+    REAL_LITERAL  shift, and go to state 59
+
+
+State 44
+
+   38 LiteralConstant: StringAndBoolean .
+
+    $default  reduce using rule 38 (LiteralConstant)
+
+
+State 45
+
+   39 NegOrNot: Epsilon .
+
+    $default  reduce using rule 39 (NegOrNot)
+
+
+State 46
+
+   53 CompoundStatement: BEGIN_ DeclarationList . StatementList END
+
+    BEGIN_  shift, and go to state 24
+    FOR     shift, and go to state 60
+    IF      shift, and go to state 61
+    WHILE   shift, and go to state 62
+    RETURN  shift, and go to state 63
+    PRINT   shift, and go to state 64
+    READ    shift, and go to state 65
+    ID      shift, and go to state 66
+
+    $default  reduce using rule 97 (Epsilon)
+
+    Statement           go to state 67
+    CompoundStatement   go to state 68
+    Simple              go to state 69
+    VariableReference   go to state 70
+    Condition           go to state 71
+    While               go to state 72
+    For                 go to state 73
+    Return              go to state 74
+    FunctionCall        go to state 75
+    FunctionInvocation  go to state 76
+    StatementList       go to state 77
+    Statements          go to state 78
+    Epsilon             go to state 79
+
+
+State 47
+
+    1 Program: ProgramName SEMICOLON DeclarationList FunctionList CompoundStatement END .
+
+    $default  reduce using rule 1 (Program)
+
+
+State 48
+
+   13 FunctionDeclaration: FunctionName L_PARENTHESIS FormalArgList . R_PARENTHESIS ReturnType SEMICOLON
+   14 FunctionDefinition: FunctionName L_PARENTHESIS FormalArgList . R_PARENTHESIS ReturnType CompoundStatement END
+
+    R_PARENTHESIS  shift, and go to state 80
+
+
+State 49
+
+   17 FormalArgList: FormalArgs .
+   19 FormalArgs: FormalArgs . SEMICOLON FormalArg
+
+    SEMICOLON  shift, and go to state 81
+
+    $default  reduce using rule 17 (FormalArgList)
+
+
+State 50
+
+   18 FormalArgs: FormalArg .
+
+    $default  reduce using rule 18 (FormalArgs)
+
+
+State 51
+
+   20 FormalArg: IdList . COLON Type
+   22 IdList: IdList . COMMA ID
+
+    COMMA  shift, and go to state 22
+    COLON  shift, and go to state 82
+
+
+State 52
+
+   16 FormalArgList: Epsilon .
+
+    $default  reduce using rule 16 (FormalArgList)
+
+
+State 53
+
+   34 ArrDecl: ARRAY INT_LITERAL . OF
+
+    OF  shift, and go to state 83
+
+
+State 54
+
+   25 Declaration: VAR IdList COLON Type SEMICOLON .
+
+    $default  reduce using rule 25 (Declaration)
+
+
+State 55
+
+   35 ArrDecl: ArrDecl ARRAY . INT_LITERAL OF
+
+    INT_LITERAL  shift, and go to state 84
+
+
+State 56
+
+   33 ArrType: ArrDecl ScalarType .
+
+    $default  reduce using rule 33 (ArrType)
+
+
+State 57
+
+   26 Declaration: VAR IdList COLON LiteralConstant SEMICOLON .
+
+    $default  reduce using rule 26 (Declaration)
+
+
+State 58
+
+   36 LiteralConstant: NegOrNot INT_LITERAL .
+
+    $default  reduce using rule 36 (LiteralConstant)
+
+
+State 59
+
+   37 LiteralConstant: NegOrNot REAL_LITERAL .
+
+    $default  reduce using rule 37 (LiteralConstant)
+
+
+State 60
+
+   65 For: FOR . ID ASSIGN INT_LITERAL TO INT_LITERAL DO CompoundStatement END DO
+
+    ID  shift, and go to state 85
+
+
+State 61
+
+   61 Condition: IF . Expression THEN CompoundStatement ElseOrNot END IF
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 95
+
+
+State 62
+
+   64 While: WHILE . Expression DO CompoundStatement END DO
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 96
+
+
+State 63
+
+   66 Return: RETURN . Expression SEMICOLON
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 97
+
+
+State 64
+
+   55 Simple: PRINT . Expression SEMICOLON
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 98
+
+
+State 65
+
+   56 Simple: READ . VariableReference SEMICOLON
+
+    ID  shift, and go to state 99
+
+    VariableReference  go to state 100
+
+
+State 66
+
+   57 VariableReference: ID .
+   58                  | ID . ArrRef
+   68 FunctionInvocation: ID . L_PARENTHESIS ExpressionList R_PARENTHESIS
+
+    L_PARENTHESIS  shift, and go to state 101
+    L_BRACKET      shift, and go to state 102
+
+    $default  reduce using rule 57 (VariableReference)
+
+    ArrRef  go to state 103
+
+
+State 67
+
+   75 Statements: Statement .
+
+    $default  reduce using rule 75 (Statements)
+
+
+State 68
+
+   46 Statement: CompoundStatement .
+
+    $default  reduce using rule 46 (Statement)
+
+
+State 69
+
+   47 Statement: Simple .
+
+    $default  reduce using rule 47 (Statement)
+
+
+State 70
+
+   54 Simple: VariableReference . ASSIGN Expression SEMICOLON
+
+    ASSIGN  shift, and go to state 104
+
+
+State 71
+
+   48 Statement: Condition .
+
+    $default  reduce using rule 48 (Statement)
+
+
+State 72
+
+   49 Statement: While .
+
+    $default  reduce using rule 49 (Statement)
+
+
+State 73
+
+   50 Statement: For .
+
+    $default  reduce using rule 50 (Statement)
+
+
+State 74
+
+   51 Statement: Return .
+
+    $default  reduce using rule 51 (Statement)
+
+
+State 75
+
+   52 Statement: FunctionCall .
+
+    $default  reduce using rule 52 (Statement)
+
+
+State 76
+
+   67 FunctionCall: FunctionInvocation . SEMICOLON
+
+    SEMICOLON  shift, and go to state 105
+
+
+State 77
+
+   53 CompoundStatement: BEGIN_ DeclarationList StatementList . END
+
+    END  shift, and go to state 106
+
+
+State 78
+
+   74 StatementList: Statements .
+   76 Statements: Statements . Statement
+
+    BEGIN_  shift, and go to state 24
+    FOR     shift, and go to state 60
+    IF      shift, and go to state 61
+    WHILE   shift, and go to state 62
+    RETURN  shift, and go to state 63
+    PRINT   shift, and go to state 64
+    READ    shift, and go to state 65
+    ID      shift, and go to state 66
+
+    $default  reduce using rule 74 (StatementList)
+
+    Statement           go to state 107
+    CompoundStatement   go to state 68
+    Simple              go to state 69
+    VariableReference   go to state 70
+    Condition           go to state 71
+    While               go to state 72
+    For                 go to state 73
+    Return              go to state 74
+    FunctionCall        go to state 75
+    FunctionInvocation  go to state 76
+
+
+State 79
+
+   73 StatementList: Epsilon .
+
+    $default  reduce using rule 73 (StatementList)
+
+
+State 80
+
+   13 FunctionDeclaration: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS . ReturnType SEMICOLON
+   14 FunctionDefinition: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS . ReturnType CompoundStatement END
+
+    COLON  shift, and go to state 108
+
+    $default  reduce using rule 97 (Epsilon)
+
+    ReturnType  go to state 109
+    Epsilon     go to state 110
+
+
+State 81
+
+   19 FormalArgs: FormalArgs SEMICOLON . FormalArg
+
+    ID  shift, and go to state 11
+
+    FormalArg  go to state 111
+    IdList     go to state 51
+
+
+State 82
+
+   20 FormalArg: IdList COLON . Type
+
+    ARRAY    shift, and go to state 30
+    BOOLEAN  shift, and go to state 31
+    INTEGER  shift, and go to state 32
+    REAL     shift, and go to state 33
+    STRING   shift, and go to state 34
+
+    Type        go to state 112
+    ScalarType  go to state 39
+    ArrType     go to state 40
+    ArrDecl     go to state 41
+
+
+State 83
+
+   34 ArrDecl: ARRAY INT_LITERAL OF .
+
+    $default  reduce using rule 34 (ArrDecl)
+
+
+State 84
+
+   35 ArrDecl: ArrDecl ARRAY INT_LITERAL . OF
+
+    OF  shift, and go to state 113
+
+
+State 85
+
+   65 For: FOR ID . ASSIGN INT_LITERAL TO INT_LITERAL DO CompoundStatement END DO
+
+    ASSIGN  shift, and go to state 114
+
+
+State 86
+
+   77 Expression: L_PARENTHESIS . Expression R_PARENTHESIS
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 115
+
+
+State 87
+
+   90 Expression: NOT . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 116
+
+
+State 88
+
+   78 Expression: MINUS . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 117
+
+
+State 89
+
+   44 IntegerAndReal: INT_LITERAL .
+
+    $default  reduce using rule 44 (IntegerAndReal)
+
+
+State 90
+
+   45 IntegerAndReal: REAL_LITERAL .
+
+    $default  reduce using rule 45 (IntegerAndReal)
+
+
+State 91
+
+   94 Expression: StringAndBoolean .
+
+    $default  reduce using rule 94 (Expression)
+
+
+State 92
+
+   93 Expression: IntegerAndReal .
+
+    $default  reduce using rule 93 (Expression)
+
+
+State 93
+
+   95 Expression: VariableReference .
+
+    $default  reduce using rule 95 (Expression)
+
+
+State 94
+
+   96 Expression: FunctionInvocation .
+
+    $default  reduce using rule 96 (Expression)
+
+
+State 95
+
+   61 Condition: IF Expression . THEN CompoundStatement ElseOrNot END IF
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+    THEN              shift, and go to state 131
+
+
+State 96
+
+   64 While: WHILE Expression . DO CompoundStatement END DO
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+    DO                shift, and go to state 132
+
+
+State 97
+
+   66 Return: RETURN Expression . SEMICOLON
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    SEMICOLON         shift, and go to state 133
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+
+State 98
+
+   55 Simple: PRINT Expression . SEMICOLON
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    SEMICOLON         shift, and go to state 134
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+
+State 99
+
+   57 VariableReference: ID .
+   58                  | ID . ArrRef
+
+    L_BRACKET  shift, and go to state 102
+
+    $default  reduce using rule 57 (VariableReference)
+
+    ArrRef  go to state 103
+
+
+State 100
+
+   56 Simple: READ VariableReference . SEMICOLON
+
+    SEMICOLON  shift, and go to state 135
+
+
+State 101
+
+   68 FunctionInvocation: ID L_PARENTHESIS . ExpressionList R_PARENTHESIS
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    $default  reduce using rule 97 (Epsilon)
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    ExpressionList      go to state 136
+    Expressions         go to state 137
+    Expression          go to state 138
+    Epsilon             go to state 139
+
+
+State 102
+
+   59 ArrRef: L_BRACKET . Expression R_BRACKET
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 140
+
+
+State 103
+
+   58 VariableReference: ID ArrRef .
+   60 ArrRef: ArrRef . L_BRACKET Expression R_BRACKET
+
+    L_BRACKET  shift, and go to state 141
+
+    $default  reduce using rule 58 (VariableReference)
+
+
+State 104
+
+   54 Simple: VariableReference ASSIGN . Expression SEMICOLON
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 142
+
+
+State 105
+
+   67 FunctionCall: FunctionInvocation SEMICOLON .
+
+    $default  reduce using rule 67 (FunctionCall)
+
+
+State 106
+
+   53 CompoundStatement: BEGIN_ DeclarationList StatementList END .
+
+    $default  reduce using rule 53 (CompoundStatement)
+
+
+State 107
+
+   76 Statements: Statements Statement .
+
+    $default  reduce using rule 76 (Statements)
+
+
+State 108
+
+   23 ReturnType: COLON . ScalarType
+
+    BOOLEAN  shift, and go to state 31
+    INTEGER  shift, and go to state 32
+    REAL     shift, and go to state 33
+    STRING   shift, and go to state 34
+
+    ScalarType  go to state 143
+
+
+State 109
+
+   13 FunctionDeclaration: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType . SEMICOLON
+   14 FunctionDefinition: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType . CompoundStatement END
+
+    SEMICOLON  shift, and go to state 144
+    BEGIN_     shift, and go to state 24
+
+    CompoundStatement  go to state 145
+
+
+State 110
+
+   24 ReturnType: Epsilon .
+
+    $default  reduce using rule 24 (ReturnType)
+
+
+State 111
+
+   19 FormalArgs: FormalArgs SEMICOLON FormalArg .
+
+    $default  reduce using rule 19 (FormalArgs)
+
+
+State 112
+
+   20 FormalArg: IdList COLON Type .
+
+    $default  reduce using rule 20 (FormalArg)
+
+
+State 113
+
+   35 ArrDecl: ArrDecl ARRAY INT_LITERAL OF .
+
+    $default  reduce using rule 35 (ArrDecl)
+
+
+State 114
+
+   65 For: FOR ID ASSIGN . INT_LITERAL TO INT_LITERAL DO CompoundStatement END DO
+
+    INT_LITERAL  shift, and go to state 146
+
+
+State 115
+
+   77 Expression: L_PARENTHESIS Expression . R_PARENTHESIS
+   79           | Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    R_PARENTHESIS     shift, and go to state 147
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+
+State 116
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   90           | NOT Expression .
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+    $default  reduce using rule 90 (Expression)
+
+
+State 117
+
+   78 Expression: MINUS Expression .
+   79           | Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    $default  reduce using rule 78 (Expression)
+
+
+State 118
+
+   92 Expression: Expression OR . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 148
+
+
+State 119
+
+   91 Expression: Expression AND . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 149
+
+
+State 120
+
+   84 Expression: Expression LESS . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 150
+
+
+State 121
+
+   85 Expression: Expression LESS_OR_EQUAL . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 151
+
+
+State 122
+
+   88 Expression: Expression EQUAL . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 152
+
+
+State 123
+
+   86 Expression: Expression GREATER . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 153
+
+
+State 124
+
+   87 Expression: Expression GREATER_OR_EQUAL . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 154
+
+
+State 125
+
+   89 Expression: Expression NOT_EQUAL . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 155
+
+
+State 126
+
+   82 Expression: Expression PLUS . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 156
+
+
+State 127
+
+   83 Expression: Expression MINUS . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 157
+
+
+State 128
+
+   79 Expression: Expression MULTIPLY . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 158
+
+
+State 129
+
+   80 Expression: Expression DIVIDE . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 159
+
+
+State 130
+
+   81 Expression: Expression MOD . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 160
+
+
+State 131
+
+   61 Condition: IF Expression THEN . CompoundStatement ElseOrNot END IF
+
+    BEGIN_  shift, and go to state 24
+
+    CompoundStatement  go to state 161
+
+
+State 132
+
+   64 While: WHILE Expression DO . CompoundStatement END DO
+
+    BEGIN_  shift, and go to state 24
+
+    CompoundStatement  go to state 162
+
+
+State 133
+
+   66 Return: RETURN Expression SEMICOLON .
+
+    $default  reduce using rule 66 (Return)
+
+
+State 134
+
+   55 Simple: PRINT Expression SEMICOLON .
+
+    $default  reduce using rule 55 (Simple)
+
+
+State 135
+
+   56 Simple: READ VariableReference SEMICOLON .
+
+    $default  reduce using rule 56 (Simple)
+
+
+State 136
+
+   68 FunctionInvocation: ID L_PARENTHESIS ExpressionList . R_PARENTHESIS
+
+    R_PARENTHESIS  shift, and go to state 163
+
+
+State 137
+
+   70 ExpressionList: Expressions .
+   72 Expressions: Expressions . COMMA Expression
+
+    COMMA  shift, and go to state 164
+
+    $default  reduce using rule 70 (ExpressionList)
+
+
+State 138
+
+   71 Expressions: Expression .
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+    $default  reduce using rule 71 (Expressions)
+
+
+State 139
+
+   69 ExpressionList: Epsilon .
+
+    $default  reduce using rule 69 (ExpressionList)
+
+
+State 140
+
+   59 ArrRef: L_BRACKET Expression . R_BRACKET
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    R_BRACKET         shift, and go to state 165
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+
+State 141
+
+   60 ArrRef: ArrRef L_BRACKET . Expression R_BRACKET
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 166
+
+
+State 142
+
+   54 Simple: VariableReference ASSIGN Expression . SEMICOLON
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    SEMICOLON         shift, and go to state 167
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+
+State 143
+
+   23 ReturnType: COLON ScalarType .
+
+    $default  reduce using rule 23 (ReturnType)
+
+
+State 144
+
+   13 FunctionDeclaration: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType SEMICOLON .
+
+    $default  reduce using rule 13 (FunctionDeclaration)
+
+
+State 145
+
+   14 FunctionDefinition: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType CompoundStatement . END
+
+    END  shift, and go to state 168
+
+
+State 146
+
+   65 For: FOR ID ASSIGN INT_LITERAL . TO INT_LITERAL DO CompoundStatement END DO
+
+    TO  shift, and go to state 169
+
+
+State 147
+
+   77 Expression: L_PARENTHESIS Expression R_PARENTHESIS .
+
+    $default  reduce using rule 77 (Expression)
+
+
+State 148
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+   92           | Expression OR Expression .
+
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+    $default  reduce using rule 92 (Expression)
+
+
+State 149
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   91           | Expression AND Expression .
+   92           | Expression . OR Expression
+
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+    $default  reduce using rule 91 (Expression)
+
+
+State 150
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   84           | Expression LESS Expression .
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    PLUS      shift, and go to state 126
+    MINUS     shift, and go to state 127
+    MULTIPLY  shift, and go to state 128
+    DIVIDE    shift, and go to state 129
+    MOD       shift, and go to state 130
+
+    $default  reduce using rule 84 (Expression)
+
+
+State 151
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   85           | Expression LESS_OR_EQUAL Expression .
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    PLUS      shift, and go to state 126
+    MINUS     shift, and go to state 127
+    MULTIPLY  shift, and go to state 128
+    DIVIDE    shift, and go to state 129
+    MOD       shift, and go to state 130
+
+    $default  reduce using rule 85 (Expression)
+
+
+State 152
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   88           | Expression EQUAL Expression .
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    PLUS      shift, and go to state 126
+    MINUS     shift, and go to state 127
+    MULTIPLY  shift, and go to state 128
+    DIVIDE    shift, and go to state 129
+    MOD       shift, and go to state 130
+
+    $default  reduce using rule 88 (Expression)
+
+
+State 153
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   86           | Expression GREATER Expression .
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    PLUS      shift, and go to state 126
+    MINUS     shift, and go to state 127
+    MULTIPLY  shift, and go to state 128
+    DIVIDE    shift, and go to state 129
+    MOD       shift, and go to state 130
+
+    $default  reduce using rule 86 (Expression)
+
+
+State 154
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   87           | Expression GREATER_OR_EQUAL Expression .
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    PLUS      shift, and go to state 126
+    MINUS     shift, and go to state 127
+    MULTIPLY  shift, and go to state 128
+    DIVIDE    shift, and go to state 129
+    MOD       shift, and go to state 130
+
+    $default  reduce using rule 87 (Expression)
+
+
+State 155
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   89           | Expression NOT_EQUAL Expression .
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    PLUS      shift, and go to state 126
+    MINUS     shift, and go to state 127
+    MULTIPLY  shift, and go to state 128
+    DIVIDE    shift, and go to state 129
+    MOD       shift, and go to state 130
+
+    $default  reduce using rule 89 (Expression)
+
+
+State 156
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   82           | Expression PLUS Expression .
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    MULTIPLY  shift, and go to state 128
+    DIVIDE    shift, and go to state 129
+    MOD       shift, and go to state 130
+
+    $default  reduce using rule 82 (Expression)
+
+
+State 157
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   83           | Expression MINUS Expression .
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    MULTIPLY  shift, and go to state 128
+    DIVIDE    shift, and go to state 129
+    MOD       shift, and go to state 130
+
+    $default  reduce using rule 83 (Expression)
+
+
+State 158
+
+   79 Expression: Expression . MULTIPLY Expression
+   79           | Expression MULTIPLY Expression .
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    $default  reduce using rule 79 (Expression)
+
+
+State 159
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   80           | Expression DIVIDE Expression .
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    $default  reduce using rule 80 (Expression)
+
+
+State 160
+
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   81           | Expression MOD Expression .
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    $default  reduce using rule 81 (Expression)
+
+
+State 161
+
+   61 Condition: IF Expression THEN CompoundStatement . ElseOrNot END IF
+
+    ELSE  shift, and go to state 170
+
+    $default  reduce using rule 97 (Epsilon)
+
+    ElseOrNot  go to state 171
+    Epsilon    go to state 172
+
+
+State 162
+
+   64 While: WHILE Expression DO CompoundStatement . END DO
+
+    END  shift, and go to state 173
+
+
+State 163
+
+   68 FunctionInvocation: ID L_PARENTHESIS ExpressionList R_PARENTHESIS .
+
+    $default  reduce using rule 68 (FunctionInvocation)
+
+
+State 164
+
+   72 Expressions: Expressions COMMA . Expression
+
+    L_PARENTHESIS   shift, and go to state 86
+    NOT             shift, and go to state 87
+    MINUS           shift, and go to state 88
+    FALSE           shift, and go to state 35
+    TRUE            shift, and go to state 36
+    ID              shift, and go to state 66
+    INT_LITERAL     shift, and go to state 89
+    REAL_LITERAL    shift, and go to state 90
+    STRING_LITERAL  shift, and go to state 37
+
+    StringAndBoolean    go to state 91
+    IntegerAndReal      go to state 92
+    VariableReference   go to state 93
+    FunctionInvocation  go to state 94
+    Expression          go to state 174
+
+
+State 165
+
+   59 ArrRef: L_BRACKET Expression R_BRACKET .
+
+    $default  reduce using rule 59 (ArrRef)
+
+
+State 166
+
+   60 ArrRef: ArrRef L_BRACKET Expression . R_BRACKET
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    R_BRACKET         shift, and go to state 175
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+
+State 167
+
+   54 Simple: VariableReference ASSIGN Expression SEMICOLON .
+
+    $default  reduce using rule 54 (Simple)
+
+
+State 168
+
+   14 FunctionDefinition: FunctionName L_PARENTHESIS FormalArgList R_PARENTHESIS ReturnType CompoundStatement END .
+
+    $default  reduce using rule 14 (FunctionDefinition)
+
+
+State 169
+
+   65 For: FOR ID ASSIGN INT_LITERAL TO . INT_LITERAL DO CompoundStatement END DO
+
+    INT_LITERAL  shift, and go to state 176
+
+
+State 170
+
+   62 ElseOrNot: ELSE . CompoundStatement
+
+    BEGIN_  shift, and go to state 24
+
+    CompoundStatement  go to state 177
+
+
+State 171
+
+   61 Condition: IF Expression THEN CompoundStatement ElseOrNot . END IF
+
+    END  shift, and go to state 178
+
+
+State 172
+
+   63 ElseOrNot: Epsilon .
+
+    $default  reduce using rule 63 (ElseOrNot)
+
+
+State 173
+
+   64 While: WHILE Expression DO CompoundStatement END . DO
+
+    DO  shift, and go to state 179
+
+
+State 174
+
+   72 Expressions: Expressions COMMA Expression .
+   79 Expression: Expression . MULTIPLY Expression
+   80           | Expression . DIVIDE Expression
+   81           | Expression . MOD Expression
+   82           | Expression . PLUS Expression
+   83           | Expression . MINUS Expression
+   84           | Expression . LESS Expression
+   85           | Expression . LESS_OR_EQUAL Expression
+   86           | Expression . GREATER Expression
+   87           | Expression . GREATER_OR_EQUAL Expression
+   88           | Expression . EQUAL Expression
+   89           | Expression . NOT_EQUAL Expression
+   91           | Expression . AND Expression
+   92           | Expression . OR Expression
+
+    OR                shift, and go to state 118
+    AND               shift, and go to state 119
+    LESS              shift, and go to state 120
+    LESS_OR_EQUAL     shift, and go to state 121
+    EQUAL             shift, and go to state 122
+    GREATER           shift, and go to state 123
+    GREATER_OR_EQUAL  shift, and go to state 124
+    NOT_EQUAL         shift, and go to state 125
+    PLUS              shift, and go to state 126
+    MINUS             shift, and go to state 127
+    MULTIPLY          shift, and go to state 128
+    DIVIDE            shift, and go to state 129
+    MOD               shift, and go to state 130
+
+    $default  reduce using rule 72 (Expressions)
+
+
+State 175
+
+   60 ArrRef: ArrRef L_BRACKET Expression R_BRACKET .
+
+    $default  reduce using rule 60 (ArrRef)
+
+
+State 176
+
+   65 For: FOR ID ASSIGN INT_LITERAL TO INT_LITERAL . DO CompoundStatement END DO
+
+    DO  shift, and go to state 180
+
+
+State 177
+
+   62 ElseOrNot: ELSE CompoundStatement .
+
+    $default  reduce using rule 62 (ElseOrNot)
+
+
+State 178
+
+   61 Condition: IF Expression THEN CompoundStatement ElseOrNot END . IF
+
+    IF  shift, and go to state 181
+
+
+State 179
+
+   64 While: WHILE Expression DO CompoundStatement END DO .
+
+    $default  reduce using rule 64 (While)
+
+
+State 180
+
+   65 For: FOR ID ASSIGN INT_LITERAL TO INT_LITERAL DO . CompoundStatement END DO
+
+    BEGIN_  shift, and go to state 24
+
+    CompoundStatement  go to state 182
+
+
+State 181
+
+   61 Condition: IF Expression THEN CompoundStatement ElseOrNot END IF .
+
+    $default  reduce using rule 61 (Condition)
+
+
+State 182
+
+   65 For: FOR ID ASSIGN INT_LITERAL TO INT_LITERAL DO CompoundStatement . END DO
+
+    END  shift, and go to state 183
+
+
+State 183
+
+   65 For: FOR ID ASSIGN INT_LITERAL TO INT_LITERAL DO CompoundStatement END . DO
+
+    DO  shift, and go to state 184
+
+
+State 184
+
+   65 For: FOR ID ASSIGN INT_LITERAL TO INT_LITERAL DO CompoundStatement END DO .
+
+    $default  reduce using rule 65 (For)

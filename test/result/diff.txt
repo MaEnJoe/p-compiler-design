@@ -1,0 +1,125 @@
+AdvSema
+--- your output:(result/AdvSema)
++++ answer:(./basic_cases/sample-solutions/AdvSema)
+@@ -69,72 +69,51 @@
+ 69:     procedure2(extern());
+ 70: end
+ 71: end
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+-a                                parameter  1(local)   integer                     
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+-a                                parameter  1(local)   integer [30][0]             
+-b                                parameter  1(local)   integer [30][0]             
+-c                                parameter  1(local)   integer [30][0]             
+-d                                parameter  1(local)   integer [30][0]             
+-e                                parameter  1(local)   integer [30][0]             
+-f                                parameter  1(local)   integer [30][0]             
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+-str                              loop_var   3(local)   integer                     
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+-str                              variable   2(local)   string                      
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+-i                                loop_var   1(local)   integer                     
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                             Kind       Level      Type             Attribute  
+---------------------------------------------------------------------------------------------------------------
+-AdvSema                          program    0(global)  void                        
+-global                           variable   0(global)  integer                     
+-procedure1                       function   0(global)  void                        
+-procedure2                       function   0(global)  void             integer    
+-extern                           function   0(global)  integer                     
+-parameterErrors                  function   0(global)  void             integer [30][0], integer [30][0], integer [30][0], integer [30][0], integer [30][0], integer [30][0]
+-int                              variable   0(global)  integer                     
+-arr                              variable   0(global)  real [30]                   
+-i                                variable   0(global)  string                      
+---------------------------------------------------------------------------------------------------------------
+-==============================================================================================================
+-Name                       Segmentation fault (core dumped)
++<Error> Found in line 19, column 1: symbol global is redeclared
++    global()
++    ^
++<Error> Found in line 27, column 17: 'a' declared as an array with an index that is not greater than 0
++    parameterErrors(a, b, c, d, e, f : array 30 of array 0 of integer);
++                    ^
++<Error> Found in line 27, column 20: 'b' declared as an array with an index that is not greater than 0
++    parameterErrors(a, b, c, d, e, f : array 30 of array 0 of integer);
++                       ^
++<Error> Found in line 27, column 23: 'c' declared as an array with an index that is not greater than 0
++    parameterErrors(a, b, c, d, e, f : array 30 of array 0 of integer);
++                          ^
++<Error> Found in line 27, column 26: 'd' declared as an array with an index that is not greater than 0
++    parameterErrors(a, b, c, d, e, f : array 30 of array 0 of integer);
++                             ^
++<Error> Found in line 27, column 29: 'e' declared as an array with an index that is not greater than 0
++    parameterErrors(a, b, c, d, e, f : array 30 of array 0 of integer);
++                                ^
++<Error> Found in line 27, column 32: 'f' declared as an array with an index that is not greater than 0
++    parameterErrors(a, b, c, d, e, f : array 30 of array 0 of integer);
++                                   ^
++<Error> Found in line 35, column 11: expression of print statement must be scalar type
++        print procedure1();
++              ^
++<Error> Found in line 38, column 11: use of undeclared symbol 'null'
++        print null();
++              ^
++<Error> Found in line 39, column 11: call of non-function symbol 'int'
++        print int("don't judge me");
++              ^
++<Error> Found in line 40, column 11: too few/much arguments provided for function 'procedure1'
++        print procedure1("overflow");
++              ^
++<Error> Found in line 41, column 22: incompatible type passing 'string' to parameter of type 'integer'
++        print procedure2("I'm string");
++                         ^
++<Error> Found in line 44, column 19: invalid operands to binary operator 'and' ('real' and 'real')
++        print arr[1.0 and 2.0];
++                      ^
++<Error> Found in line 56, column 13: symbol i is redeclared
++            for i := 19 to 25 do
++                ^
++<Error> Found in line 62, column 17: invalid operands to binary operator 'and' ('integer' and 'string')
++            print i and str;
++                    ^
++<Error> Found in line 67, column 5: call of non-function symbol 'global'
++        global();
++        ^
+
